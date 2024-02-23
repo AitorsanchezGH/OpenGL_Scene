@@ -1,0 +1,14 @@
+# ninja log v5
+3	244	7304002267982202	build.ninja	c51ddf552289cd65
+1031	1291	7302396404783615	C:/Users/aitor/Documents/IG/sesion3/binary/sesion3.exe	ce358c09796021f3
+3	895	7303977339260624	CMakeFiles/sesion4.dir/src/main.cpp.obj	5860a22468e7d50d
+13	1152	7302424084463272	CMakeFiles/sesion4.dir/src/Shaders.cpp.obj	b246456a1dfe1b34
+3	1344	7302424086381276	CMakeFiles/sesion4.dir/src/Model.cpp.obj	6def282cb22753d2
+895	1138	7303977341810377	C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.exe	e5b4974708109c4b
+9	3649	7304292530992368	CMakeFiles/sesion4.dir/src/main.cpp.obj	5860a22468e7d50d
+3	1337	7304292643351297	CMakeFiles/sesion4.dir/src/main.cpp.obj	5860a22468e7d50d
+1337	1577	7304292645700077	C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.exe	e5b4974708109c4b
+3	1170	7304299403438653	CMakeFiles/sesion4.dir/src/main.cpp.obj	5860a22468e7d50d
+1171	1570	7304299407368592	C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.exe	e5b4974708109c4b
+3	1516	7304299803678131	CMakeFiles/sesion4.dir/src/main.cpp.obj	5860a22468e7d50d
+1517	1812	7304299806576854	C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.exe	e5b4974708109c4b
