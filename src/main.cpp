@@ -9,6 +9,7 @@ void renderScene();
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawSuelo (glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawAspa  (glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
@@ -26,7 +27,7 @@ void funKey            (GLFWwindow* window, int key  , int scancode, int action,
 
 // Animaciones
    float desZ = 0.0;
-   float rotY = 0.0;
+   float rotZ = 0.0;
 
 int main() {
 
@@ -114,7 +115,10 @@ void renderScene() {
 
  // Dibujamos la escena
     drawSuelo(P,V,I);
-    drawAspa(P,V,I);
+
+    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
+    glm::mat4 R = glm::rotate   (I, glm::radians(rotZ), glm::vec3(0, 0, 1));
+    drawHelice(P,V,R*T);
 
 }
 
@@ -146,6 +150,16 @@ void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
 }
 
+void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+
+    glm::mat4 Rz90 = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 0, 1));
+    drawAspa(P,V,M);
+    drawAspa(P,V,M*Rz90);
+    drawAspa(P,V,M*Rz90*Rz90);
+    drawAspa(P,V,M*Rz90*Rz90*Rz90);
+
+}
+
 void funFramebufferSize(GLFWwindow* window, int width, int height) {
 
  // Configuracion del Viewport
@@ -162,11 +176,11 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
     switch(key) {
         case GLFW_KEY_UP:    desZ -= 0.1; break;
         case GLFW_KEY_DOWN:  desZ += 0.1; break;
-        case GLFW_KEY_LEFT:  rotY -= 5.0; break;
-        case GLFW_KEY_RIGHT: rotY += 5.0; break;
+        case GLFW_KEY_LEFT:  rotZ += 5.0; break;
+        case GLFW_KEY_RIGHT: rotZ -= 5.0; break;
         default:
             desZ = 0.0;
-            rotY = 0.0;
+            rotZ = 0.0;
     }
 
 }
