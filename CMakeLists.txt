@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.19)
 
-set(PROJECT_NAME sesion4)
+set(PROJECT_NAME sesion5)
 set(CODE_PATH src)
 
 set(CMAKE_CXX_STANDARD 14)
