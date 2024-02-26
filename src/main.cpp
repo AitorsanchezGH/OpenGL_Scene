@@ -9,25 +9,16 @@ void renderScene();
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize (GLFWwindow* window, int width, int height);
-void funKey             (GLFWwindow* window, int key, int scancode, int action, int mods);
-void funScroll          (GLFWwindow* window, double xoffset, double yoffset);
 
 // Shaders
    Shaders shaders;
 
 // Modelos
-   Model cube;
    Model triangle;
 
 // Viewport
    int w = 500;
    int h = 500;
-
-// Control de la escena
-   bool  ortho = false;
-   float theta =   0.0;
-   float desZ  =   0.0;
-   float fovy  =  90.0;
 
 int main() {
 
@@ -40,7 +31,7 @@ int main() {
 
  // Creamos la ventana
     GLFWwindow* window;
-    window = glfwCreateWindow(w, h, "Sesion 4", NULL, NULL);
+    window = glfwCreateWindow(w, h, "Sesion 5", NULL, NULL);
     if(!window) {
         glfwTerminate();
         return -1;
@@ -61,8 +52,6 @@ int main() {
 
  // Configuramos los CallBacks
     glfwSetFramebufferSizeCallback(window, funFramebufferSize);
-    glfwSetKeyCallback            (window, funKey);
-    glfwSetScrollCallback         (window, funScroll);
 
  // Entramos en el bucle de renderizado
     configScene();
@@ -87,7 +76,6 @@ void configScene() {
     shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
 
  // Modelos
-    cube.initModel("resources/models/cube.obj");
     triangle.initModel("resources/models/triangle.obj");
 
 }
@@ -102,29 +90,20 @@ void renderScene() {
     shaders.useShaders();
 
  // Matriz P
+    float fovy   = 60.0;
     float nplane =  0.1;
     float fplane = 25.0;
     float aspect = (float)w/(float)h;
-    glm::mat4 P;
-    if(ortho) P = glm::ortho(-4.0f, 4.0f , -4.0f, 4.0f, nplane, fplane);
-    else      P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
+    glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
  // Matriz V
-    glm::vec3 eye   ( 0.0,  0.0, desZ);
-    glm::vec3 center( 0.0, -0.5, -5.0);
-    glm::vec3 up    ( 0.0,  1.0,  0.0);
+    glm::vec3 eye   (0.0, 0.0, 10.0);
+    glm::vec3 center(0.0, 0.0,  0.0);
+    glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
- // Dibujamos la escena
-    glm::mat4 T = glm::translate(I, glm::vec3(0.0, -2.0, -5.0));
-    glm::mat4 M = T;
-    drawObject(cube, glm::vec3(1.0, 0.0, 0.0), P, V, M);
-
-    glm::mat4 S2 = glm::scale    (I, glm::vec3(0.5, 0.5, 1.0));
-    glm::mat4 R2 = glm::rotate   (I, glm::radians(theta), glm::vec3(0, 1, 0));
-    glm::mat4 T2 = glm::translate(I, glm::vec3(0.0, -0.5, -5.0));
-    glm::mat4 M2 = T2*R2*S2;
-    drawObject(triangle,glm::vec3(0.0, 1.0, 0.0),P,V,M2);
+ // Dibujamos el objeto
+    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, I);
 
 }
 
@@ -150,35 +129,5 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
  // Actualizacion de w y h
     w = width;
     h = height;
-
-}
-
-void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
-
-    switch(key) {
-        case GLFW_KEY_O: if(action==GLFW_PRESS)  ortho = true; break;
-        case GLFW_KEY_Y: if(action==GLFW_REPEAT) theta += 5.0; break;
-        case GLFW_KEY_Z:
-            if(action==GLFW_PRESS) {
-               if(mods == GLFW_MOD_SHIFT) desZ -= desZ > -2.95 ? 0.1 : 0.0;
-               else                       desZ += desZ <  2.95 ? 0.1 : 0.0;
-            }
-            break;
-        case GLFW_KEY_R:
-            if(action==GLFW_PRESS) {
-               ortho = false;
-               theta =   0.0;
-               desZ  =   0.0;
-               fovy  =  90.0;
-            }
-            break;
-    }
-
-}
-
-void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
-
-    if(yoffset>0) fovy -= fovy>30.0 ? 5.0 : 0.0;
-    if(yoffset<0) fovy += fovy<90.0 ? 5.0 : 0.0;
 
 }
