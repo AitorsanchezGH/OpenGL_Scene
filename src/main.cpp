@@ -7,6 +7,8 @@
 void configScene();
 void renderScene();
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawSuelo (glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawAspa  (glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
@@ -105,18 +107,14 @@ void renderScene() {
     glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
  // Matriz V
-    glm::vec3 eye   (0.0, 5.0, 10.0);
+    glm::vec3 eye   (0.0, 0.0, 10.0);
     glm::vec3 center(0.0, 0.0,  0.0);
     glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
  // Dibujamos la escena
-    glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
-    drawObject(plane, glm::vec3(0.0, 0.0, 1.0), P, V, S);
-
-    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 1.0, desZ));
-    glm::mat4 R = glm::rotate   (I, glm::radians(rotY), glm::vec3(0, 1, 0));
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, R*T);
+    drawSuelo(P,V,I);
+    drawAspa(P,V,I);
 
 }
 
@@ -131,6 +129,20 @@ void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::ma
 
     shaders.setVec3("uColor",glm::vec3(1.0, 1.0, 1.0));
     model.renderModel(GL_LINE);
+
+}
+
+void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+
+    glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
+    drawObject(plane, glm::vec3(0.0, 0.0, 1.0), P, V, M*S);
+
+}
+
+void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+
+    glm::mat4 T = glm::translate(I, glm::vec3(0.0, -1.0, 0.0));
+    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, M*T);
 
 }
 
