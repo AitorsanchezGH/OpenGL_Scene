@@ -24,6 +24,7 @@ void funKey            (GLFWwindow* window, int key  , int scancode, int action,
 
 // Animaciones
    float desZ = 0.0;
+   float rotY = 0.0;
 
 int main() {
 
@@ -114,7 +115,8 @@ void renderScene() {
     drawObject(plane, glm::vec3(0.0, 0.0, 1.0), P, V, S);
 
     glm::mat4 T = glm::translate(I, glm::vec3(0.0, 1.0, desZ));
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, T);
+    glm::mat4 R = glm::rotate   (I, glm::radians(rotY), glm::vec3(0, 1, 0));
+    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, R*T);
 
 }
 
@@ -146,10 +148,13 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
 
     switch(key) {
-        case GLFW_KEY_UP:   desZ -= 0.1; break;
-        case GLFW_KEY_DOWN: desZ += 0.1; break;
+        case GLFW_KEY_UP:    desZ -= 0.1; break;
+        case GLFW_KEY_DOWN:  desZ += 0.1; break;
+        case GLFW_KEY_LEFT:  rotY -= 5.0; break;
+        case GLFW_KEY_RIGHT: rotY += 5.0; break;
         default:
             desZ = 0.0;
+            rotY = 0.0;
     }
 
 }
