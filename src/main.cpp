@@ -8,17 +8,22 @@ void configScene();
 void renderScene();
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
-void funFramebufferSize (GLFWwindow* window, int width, int height);
+void funFramebufferSize(GLFWwindow* window, int width, int height);
+void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
 
 // Shaders
    Shaders shaders;
 
 // Modelos
+   Model plane;
    Model triangle;
 
 // Viewport
    int w = 500;
    int h = 500;
+
+// Animaciones
+   float desZ = 0.0;
 
 int main() {
 
@@ -52,6 +57,7 @@ int main() {
 
  // Configuramos los CallBacks
     glfwSetFramebufferSizeCallback(window, funFramebufferSize);
+    glfwSetKeyCallback(window, funKey);
 
  // Entramos en el bucle de renderizado
     configScene();
@@ -76,6 +82,7 @@ void configScene() {
     shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
 
  // Modelos
+    plane.initModel("resources/models/plane.obj");
     triangle.initModel("resources/models/triangle.obj");
 
 }
@@ -97,13 +104,17 @@ void renderScene() {
     glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
  // Matriz V
-    glm::vec3 eye   (0.0, 0.0, 10.0);
+    glm::vec3 eye   (0.0, 5.0, 10.0);
     glm::vec3 center(0.0, 0.0,  0.0);
     glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
- // Dibujamos el objeto
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, I);
+ // Dibujamos la escena
+    glm::mat4 S = glm::scale(I, glm::vec3(5.0, 1.0, 5.0));
+    drawObject(plane, glm::vec3(0.0, 0.0, 1.0), P, V, S);
+
+    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 1.0, desZ));
+    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, T);
 
 }
 
@@ -129,5 +140,16 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
  // Actualizacion de w y h
     w = width;
     h = height;
+
+}
+
+void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
+
+    switch(key) {
+        case GLFW_KEY_UP:   desZ -= 0.1; break;
+        case GLFW_KEY_DOWN: desZ += 0.1; break;
+        default:
+            desZ = 0.0;
+    }
 
 }
