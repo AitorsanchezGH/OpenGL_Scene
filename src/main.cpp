@@ -10,9 +10,11 @@ void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::ma
 void drawSuelo (glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawAspa  (glm::mat4 P, glm::mat4 V, glm::mat4 M);
 void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void drawMolino(glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
+void funTimer          (double seconds, double &t0);
 
 // Shaders
    Shaders shaders;
@@ -20,14 +22,16 @@ void funKey            (GLFWwindow* window, int key  , int scancode, int action,
 // Modelos
    Model plane;
    Model triangle;
+   Model cylinder;
 
 // Viewport
    int w = 500;
    int h = 500;
 
 // Animaciones
-   float desZ = 0.0;
    float rotZ = 0.0;
+   float desZ = 0.0;
+   float rotY = 0.0;
 
 int main() {
 
@@ -46,7 +50,7 @@ int main() {
         return -1;
     }
     glfwMakeContextCurrent(window);
-    glfwSwapInterval(1);
+    glfwSwapInterval(0);
 
  // Inicializamos GLEW
     glewExperimental = GL_TRUE;
@@ -65,10 +69,12 @@ int main() {
 
  // Entramos en el bucle de renderizado
     configScene();
+    double t0 = glfwGetTime();
     while(!glfwWindowShouldClose(window)) {
         renderScene();
         glfwSwapBuffers(window);
         glfwPollEvents();
+        funTimer(0.01,t0);
     }
     glfwDestroyWindow(window);
     glfwTerminate();
@@ -88,6 +94,7 @@ void configScene() {
  // Modelos
     plane.initModel("resources/models/plane.obj");
     triangle.initModel("resources/models/triangle.obj");
+    cylinder.initModel("resources/models/cylinder.obj");
 
 }
 
@@ -108,17 +115,17 @@ void renderScene() {
     glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
  // Matriz V
-    glm::vec3 eye   (0.0, 0.0, 10.0);
-    glm::vec3 center(0.0, 0.0,  0.0);
+    glm::vec3 eye   (0.0, 3.0, 10.0);
+    glm::vec3 center(0.0, 0.0, -1.0);
     glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
  // Dibujamos la escena
     drawSuelo(P,V,I);
 
+    glm::mat4 R = glm::rotate(I, glm::radians(rotY), glm::vec3(0.0, 1.0, 0.0));
     glm::mat4 T = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-    glm::mat4 R = glm::rotate   (I, glm::radians(rotZ), glm::vec3(0, 0, 1));
-    drawHelice(P,V,R*T);
+    drawMolino(P,V,T*R);
 
 }
 
@@ -146,17 +153,29 @@ void drawSuelo(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 void drawAspa(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
     glm::mat4 T = glm::translate(I, glm::vec3(0.0, -1.0, 0.0));
-    drawObject(triangle, glm::vec3(1.0, 0.0, 0.0), P, V, M*T);
+    glm::mat4 S = glm::scale    (I, glm::vec3(0.2,  0.4 ,1.0));
+    drawObject(triangle,glm::vec3(1.0, 0.0, 0.0),P,V,M*S*T);
 
 }
 
 void drawHelice(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+    
+    glm::mat4 Rz120 = glm::rotate(I, glm::radians(120.0f), glm::vec3(0, 0, 1));
+    glm::mat4 Rauto = glm::rotate(I, glm::radians(rotZ)  , glm::vec3(0, 0, 1));
+    drawAspa(P,V,M*Rauto);
+    drawAspa(P,V,M*Rauto*Rz120);
+    drawAspa(P,V,M*Rauto*Rz120*Rz120);
 
-    glm::mat4 Rz90 = glm::rotate(I, glm::radians(90.0f), glm::vec3(0, 0, 1));
-    drawAspa(P,V,M);
-    drawAspa(P,V,M*Rz90);
-    drawAspa(P,V,M*Rz90*Rz90);
-    drawAspa(P,V,M*Rz90*Rz90*Rz90);
+}
+
+void drawMolino(glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+
+    glm::mat4 T1 = glm::translate(I, glm::vec3(0.0, 1.0, 0.0));
+    glm::mat4 S1 = glm::scale    (I, glm::vec3(0.1, 1.0, 0.1));
+    drawObject(cylinder,glm::vec3(0.0, 1.0 , 0.0),P,V,M*S1*T1);
+
+    glm::mat4 T2 = glm::translate(I, glm::vec3(0.0, 2.0, 0.0));
+    drawHelice(P,V,M*T2);
 
 }
 
@@ -176,11 +195,21 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
     switch(key) {
         case GLFW_KEY_UP:    desZ -= 0.1; break;
         case GLFW_KEY_DOWN:  desZ += 0.1; break;
-        case GLFW_KEY_LEFT:  rotZ += 5.0; break;
-        case GLFW_KEY_RIGHT: rotZ -= 5.0; break;
+        case GLFW_KEY_LEFT:  rotY += 5.0; break;
+        case GLFW_KEY_RIGHT: rotY -= 5.0; break;
         default:
             desZ = 0.0;
-            rotZ = 0.0;
+            rotY = 0.0;
+    }
+
+}
+
+void funTimer(double seconds, double &t0) {
+
+    double t1 = glfwGetTime();
+    if(t1-t0 > seconds) {
+        rotZ -= 2.0;
+        t0 = t1;
     }
 
 }
