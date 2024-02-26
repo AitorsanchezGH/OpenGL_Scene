@@ -157,6 +157,7 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 
     switch(key) {
         case GLFW_KEY_O: if(action==GLFW_PRESS)  ortho = true; break;
+        case GLFW_KEY_P: if(action==GLFW_PRESS)  ortho = false; break;
         case GLFW_KEY_Y: if(action==GLFW_REPEAT) theta += 5.0; break;
         case GLFW_KEY_Z:
             if(action==GLFW_PRESS) {
