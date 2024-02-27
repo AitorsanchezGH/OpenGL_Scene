@@ -947,7 +947,7 @@
 				}
 			],
 			"type" : "STATIC",
-			"value" : "sesion4"
+			"value" : "sesion6"
 		},
 		{
 			"name" : "CMAKE_RANLIB",
@@ -1379,6 +1379,42 @@
 		},
 		{
 			"name" : "sesion4_SOURCE_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/aitor/Documents/IG/sesion6"
+		},
+		{
+			"name" : "sesion6_BINARY_DIR",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug"
+		},
+		{
+			"name" : "sesion6_IS_TOP_LEVEL",
+			"properties" : 
+			[
+				{
+					"name" : "HELPSTRING",
+					"value" : "Value Computed by CMake"
+				}
+			],
+			"type" : "STATIC",
+			"value" : "ON"
+		},
+		{
+			"name" : "sesion6_SOURCE_DIR",
 			"properties" : 
 			[
 				{

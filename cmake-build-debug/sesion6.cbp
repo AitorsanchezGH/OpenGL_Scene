@@ -2,7 +2,7 @@
 <CodeBlocks_project_file>
 	<FileVersion major="1" minor="6"/>
 	<Project>
-		<Option title="sesion4"/>
+		<Option title="sesion6"/>
 		<Option makefile_is_custom="1"/>
 		<Option compiler="gcc"/>
 		<Option virtualFolders="CMake Files\;"/>
@@ -17,8 +17,8 @@
 					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="sesion4">
-				<Option output="C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="sesion6">
+				<Option output="C:/Users/aitor/Documents/IG/sesion6/binary/sesion6.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="../binary"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -39,14 +39,14 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 sesion4"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 sesion6"/>
 					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 				</MakeCommands>
 			</Target>
-			<Target title="sesion4/fast">
-				<Option output="C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.exe" prefix_auto="0" extension_auto="0"/>
+			<Target title="sesion6/fast">
+				<Option output="C:/Users/aitor/Documents/IG/sesion6/binary/sesion6.exe" prefix_auto="0" extension_auto="0"/>
 				<Option working_dir="../binary"/>
 				<Option object_output="./"/>
 				<Option type="1"/>
@@ -67,7 +67,7 @@
 					<Add directory="c:\mingw\bin\../lib/gcc/mingw32/6.3.0/../../../../mingw32/include"/>
 				</Compiler>
 				<MakeCommands>
-					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 sesion4/fast"/>
+					<Build command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 sesion6/fast"/>
 					<CompileFile command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
 					<Clean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
 					<DistClean command="C:/MinGW/bin/mingw32-make.exe -f &quot;C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug/Makefile&quot;  VERBOSE=1 clean"/>
@@ -95,19 +95,19 @@
 			</Target>
 		</Build>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/src/Model.cpp">
-			<Option target="sesion4"/>
+			<Option target="sesion6"/>
 		</Unit>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/src/Model.h">
-			<Option target="sesion4"/>
+			<Option target="sesion6"/>
 		</Unit>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/src/Shaders.cpp">
-			<Option target="sesion4"/>
+			<Option target="sesion6"/>
 		</Unit>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/src/Shaders.h">
-			<Option target="sesion4"/>
+			<Option target="sesion6"/>
 		</Unit>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/src/main.cpp">
-			<Option target="sesion4"/>
+			<Option target="sesion6"/>
 		</Unit>
 		<Unit filename="C:/Users/aitor/Documents/IG/sesion6/CMakeLists.txt">
 			<Option virtualFolder="CMake Files\"/>

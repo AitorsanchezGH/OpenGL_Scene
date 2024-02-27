@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.exe"
+			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion6.exe"
 		},
 		{
-			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.pdb"
+			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion6.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -106,7 +106,7 @@
 			]
 		}
 	],
-	"id" : "sesion4::@6890427a1f51a3e7e1df",
+	"id" : "sesion6::@6890427a1f51a3e7e1df",
 	"link" : 
 	{
 		"commandFragments" : 
@@ -181,8 +181,8 @@
 		],
 		"language" : "CXX"
 	},
-	"name" : "sesion4",
-	"nameOnDisk" : "sesion4.exe",
+	"name" : "sesion6",
+	"nameOnDisk" : "sesion6.exe",
 	"paths" : 
 	{
 		"build" : ".",

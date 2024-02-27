@@ -116,24 +116,24 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named sesion4
+# Target rules for targets named sesion6
 
 # Build rule for target.
-sesion4: cmake_check_build_system
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 sesion4
-.PHONY : sesion4
+sesion6: cmake_check_build_system
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 sesion6
+.PHONY : sesion6
 
 # fast build rule for target.
-sesion4/fast:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/build
-.PHONY : sesion4/fast
+sesion6/fast:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/build
+.PHONY : sesion6/fast
 
 src/Model.obj: src/Model.cpp.obj
 .PHONY : src/Model.obj
 
 # target to build an object file
 src/Model.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Model.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Model.cpp.obj
 .PHONY : src/Model.cpp.obj
 
 src/Model.i: src/Model.cpp.i
@@ -141,7 +141,7 @@ src/Model.i: src/Model.cpp.i
 
 # target to preprocess a source file
 src/Model.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Model.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Model.cpp.i
 .PHONY : src/Model.cpp.i
 
 src/Model.s: src/Model.cpp.s
@@ -149,7 +149,7 @@ src/Model.s: src/Model.cpp.s
 
 # target to generate assembly for a file
 src/Model.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Model.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Model.cpp.s
 .PHONY : src/Model.cpp.s
 
 src/Shaders.obj: src/Shaders.cpp.obj
@@ -157,7 +157,7 @@ src/Shaders.obj: src/Shaders.cpp.obj
 
 # target to build an object file
 src/Shaders.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Shaders.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Shaders.cpp.obj
 .PHONY : src/Shaders.cpp.obj
 
 src/Shaders.i: src/Shaders.cpp.i
@@ -165,7 +165,7 @@ src/Shaders.i: src/Shaders.cpp.i
 
 # target to preprocess a source file
 src/Shaders.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Shaders.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Shaders.cpp.i
 .PHONY : src/Shaders.cpp.i
 
 src/Shaders.s: src/Shaders.cpp.s
@@ -173,7 +173,7 @@ src/Shaders.s: src/Shaders.cpp.s
 
 # target to generate assembly for a file
 src/Shaders.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/Shaders.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/Shaders.cpp.s
 .PHONY : src/Shaders.cpp.s
 
 src/main.obj: src/main.cpp.obj
@@ -181,7 +181,7 @@ src/main.obj: src/main.cpp.obj
 
 # target to build an object file
 src/main.cpp.obj:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/main.cpp.obj
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/main.cpp.obj
 .PHONY : src/main.cpp.obj
 
 src/main.i: src/main.cpp.i
@@ -189,7 +189,7 @@ src/main.i: src/main.cpp.i
 
 # target to preprocess a source file
 src/main.cpp.i:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/main.cpp.i
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/main.cpp.i
 .PHONY : src/main.cpp.i
 
 src/main.s: src/main.cpp.s
@@ -197,7 +197,7 @@ src/main.s: src/main.cpp.s
 
 # target to generate assembly for a file
 src/main.cpp.s:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/src/main.cpp.s
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/src/main.cpp.s
 .PHONY : src/main.cpp.s
 
 # Help Target
@@ -208,7 +208,7 @@ help:
 	@echo ... depend
 	@echo ... edit_cache
 	@echo ... rebuild_cache
-	@echo ... sesion4
+	@echo ... sesion6
 	@echo ... src/Model.obj
 	@echo ... src/Model.i
 	@echo ... src/Model.s

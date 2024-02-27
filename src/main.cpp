@@ -8,26 +8,30 @@ void configScene();
 void renderScene();
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
-void funFramebufferSize (GLFWwindow* window, int width, int height);
-void funKey             (GLFWwindow* window, int key, int scancode, int action, int mods);
-void funScroll          (GLFWwindow* window, double xoffset, double yoffset);
+void funFramebufferSize(GLFWwindow* window, int width, int height);
+void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
+void funScroll         (GLFWwindow* window, double xoffset, double yoffset);
+void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Shaders
    Shaders shaders;
 
 // Modelos
-   Model cube;
-   Model triangle;
+   Model sphere;
 
 // Viewport
    int w = 500;
    int h = 500;
 
-// Control de la escena
-   bool  ortho = false;
-   float theta =   0.0;
-   float desZ  =   0.0;
-   float fovy  =  90.0;
+// Animaciones
+   float rotX = 0.0;
+   float rotY = 0.0;
+   float desZ = 0.0;
+
+// Movimiento de camara
+   float fovy   = 30.0;
+   float alphaX =  0.0;
+   float alphaY =  0.0;
 
 int main() {
 
@@ -40,7 +44,7 @@ int main() {
 
  // Creamos la ventana
     GLFWwindow* window;
-    window = glfwCreateWindow(w, h, "Sesion 4", NULL, NULL);
+    window = glfwCreateWindow(w, h, "Sesion 6", NULL, NULL);
     if(!window) {
         glfwTerminate();
         return -1;
@@ -61,8 +65,9 @@ int main() {
 
  // Configuramos los CallBacks
     glfwSetFramebufferSizeCallback(window, funFramebufferSize);
-    glfwSetKeyCallback            (window, funKey);
-    glfwSetScrollCallback         (window, funScroll);
+    glfwSetKeyCallback      (window, funKey);
+    glfwSetScrollCallback   (window, funScroll);
+    glfwSetCursorPosCallback(window, funCursorPos);
 
  // Entramos en el bucle de renderizado
     configScene();
@@ -84,11 +89,10 @@ void configScene() {
     glPolygonOffset(1.0,1.0);
 
  // Shaders
-    shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
+    shaders.initShaders("resources1/shaders/vshader.glsl","resources1/shaders/fshader.glsl");
 
  // Modelos
-    cube.initModel("resources/models/cube.obj");
-    triangle.initModel("resources/models/triangle.obj");
+    sphere.initModel("resources1/models/sphere.obj");
 
 }
 
@@ -105,26 +109,22 @@ void renderScene() {
     float nplane =  0.1;
     float fplane = 25.0;
     float aspect = (float)w/(float)h;
-    glm::mat4 P;
-    if(ortho) P = glm::ortho(-4.0f, 4.0f , -4.0f, 4.0f, nplane, fplane);
-    else      P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
+    glm::mat4 P = glm::perspective(glm::radians(fovy), aspect, nplane, fplane);
 
  // Matriz V
-    glm::vec3 eye   ( 0.0,  0.0, desZ);
-    glm::vec3 center( 0.0, -0.5, -5.0);
-    glm::vec3 up    ( 0.0,  1.0,  0.0);
+    float x = 10.0f*glm::cos(glm::radians(alphaY))*glm::sin(glm::radians(alphaX));
+    float y = 10.0f*glm::sin(glm::radians(alphaY));
+    float z = 10.0f*glm::cos(glm::radians(alphaY))*glm::cos(glm::radians(alphaX));
+    glm::vec3 eye   (  x,   y,   z);
+    glm::vec3 center(0.0, 0.0,  0.0);
+    glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
  // Dibujamos la escena
-    glm::mat4 T = glm::translate(I, glm::vec3(0.0, -2.0, -5.0));
-    glm::mat4 M = T;
-    drawObject(cube, glm::vec3(1.0, 0.0, 0.0), P, V, M);
-
-    glm::mat4 S2 = glm::scale    (I, glm::vec3(0.5, 0.5, 1.0));
-    glm::mat4 R2 = glm::rotate   (I, glm::radians(theta), glm::vec3(0, 1, 0));
-    glm::mat4 T2 = glm::translate(I, glm::vec3(0.0, -0.5, -5.0));
-    glm::mat4 M2 = T2*R2*S2;
-    drawObject(triangle,glm::vec3(0.0, 1.0, 0.0),P,V,M2);
+    glm::mat4 Ry = glm::rotate   (I, glm::radians(rotY), glm::vec3(0,1,0));
+    glm::mat4 Rx = glm::rotate   (I, glm::radians(rotX), glm::vec3(1,0,0));
+    glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
+    drawObject(sphere,glm::vec3(1.0, 0.0, 0.0),P,V,Tz*Rx*Ry);
 
 }
 
@@ -153,24 +153,20 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 
 }
 
-void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
 
     switch(key) {
-        case GLFW_KEY_O: if(action==GLFW_PRESS)  ortho = true; break;
-        case GLFW_KEY_Y: if(action==GLFW_REPEAT) theta += 5.0; break;
+        case GLFW_KEY_UP:    rotX -= 5.0f;   break;
+        case GLFW_KEY_DOWN:  rotX += 5.0f;   break;
+        case GLFW_KEY_LEFT:  rotY -= 5.0f;   break;
+        case GLFW_KEY_RIGHT: rotY += 5.0f;   break;
         case GLFW_KEY_Z:
-            if(action==GLFW_PRESS) {
-               if(mods == GLFW_MOD_SHIFT) desZ -= desZ > -2.95 ? 0.1 : 0.0;
-               else                       desZ += desZ <  2.95 ? 0.1 : 0.0;
-            }
+            if(mods==GLFW_MOD_SHIFT) desZ -= desZ > -3.55f ? 0.1f : 0.0f;
+            else                     desZ += desZ <  3.55f ? 0.1f : 0.0f;
             break;
-        case GLFW_KEY_R:
-            if(action==GLFW_PRESS) {
-               ortho = false;
-               theta =   0.0;
-               desZ  =   0.0;
-               fovy  =  90.0;
-            }
+        default:
+            rotX = 0.0f;
+            rotY = 0.0f;
             break;
     }
 
@@ -178,7 +174,19 @@ void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
 
 void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
 
-    if(yoffset>0) fovy -= fovy>30.0 ? 5.0 : 0.0;
-    if(yoffset<0) fovy += fovy<90.0 ? 5.0 : 0.0;
+    if(yoffset>0) fovy -= fovy>10.0f ? 5.0f : 0.0f;
+    if(yoffset<0) fovy += fovy<90.0f ? 5.0f : 0.0f;
+
+}
+
+void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
+
+    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)==GLFW_RELEASE) return;
+
+    float limY = 89.0;
+    alphaX = 90.0*(2.0*xpos/(float)w - 1.0);
+    alphaY = 90.0*(1.0 - 2.0*ypos/(float)h);
+    if(alphaY<-limY) alphaY = -limY;
+    if(alphaY> limY) alphaY =  limY;
 
 }
