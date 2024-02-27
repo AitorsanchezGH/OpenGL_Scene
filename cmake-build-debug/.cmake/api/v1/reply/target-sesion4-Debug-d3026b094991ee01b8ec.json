@@ -2,10 +2,10 @@
 	"artifacts" : 
 	[
 		{
-			"path" : "C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.exe"
+			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.exe"
 		},
 		{
-			"path" : "C:/Users/aitor/Documents/IG/sesion4/binary/sesion4.pdb"
+			"path" : "C:/Users/aitor/Documents/IG/sesion6/binary/sesion4.pdb"
 		}
 	],
 	"backtrace" : 1,
@@ -66,27 +66,27 @@
 			[
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/src"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/src"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/../libraries/glew/include"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/../libraries/glew/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/../libraries/glfw/include"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/../libraries/glfw/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/../libraries/glm/include"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/../libraries/glm/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/../libraries/assimp/include"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/../libraries/assimp/include"
 				},
 				{
 					"backtrace" : 4,
-					"path" : "C:/Users/aitor/Documents/IG/sesion4/../libraries/freeimage/include"
+					"path" : "C:/Users/aitor/Documents/IG/sesion6/../libraries/freeimage/include"
 				}
 			],
 			"language" : "CXX",
@@ -121,27 +121,27 @@
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion4\\..\\libraries\\glew\\lib",
+				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion6\\..\\libraries\\glew\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion4\\..\\libraries\\glfw\\lib",
+				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion6\\..\\libraries\\glfw\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion4\\..\\libraries\\glm\\lib",
+				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion6\\..\\libraries\\glm\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion4\\..\\libraries\\assimp\\lib",
+				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion6\\..\\libraries\\assimp\\lib",
 				"role" : "libraryPath"
 			},
 			{
 				"backtrace" : 2,
-				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion4\\..\\libraries\\freeimage\\lib",
+				"fragment" : "-LC:\\Users\\aitor\\Documents\\IG\\sesion6\\..\\libraries\\freeimage\\lib",
 				"role" : "libraryPath"
 			},
 			{
