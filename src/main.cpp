@@ -86,7 +86,6 @@ void configScene() {
 
  // Test de profundidad
     glEnable(GL_DEPTH_TEST);
-    glPolygonOffset(1.0,1.0);
 
  // Shaders
     shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
@@ -131,14 +130,9 @@ void renderScene() {
 void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
     shaders.setMat4("uPVM",P*V*M);
+    shaders.setVec3("uColor",color);
+    model.renderModel(GL_FILL);
 
-    glEnable(GL_POLYGON_OFFSET_FILL);
-        shaders.setVec3("uColor",color);
-        model.renderModel(GL_FILL);
-    glDisable(GL_POLYGON_OFFSET_FILL);
-
-    shaders.setVec3("uColor",glm::vec3(1.0, 1.0, 1.0));
-    model.renderModel(GL_LINE);
 
 }
 
