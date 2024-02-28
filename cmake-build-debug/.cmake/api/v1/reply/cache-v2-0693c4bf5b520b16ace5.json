@@ -727,7 +727,7 @@
 				}
 			],
 			"type" : "PATH",
-			"value" : "C:/Program Files (x86)/sesion4"
+			"value" : "C:/Program Files (x86)/sesion5"
 		},
 		{
 			"name" : "CMAKE_LINKER",
@@ -1354,7 +1354,7 @@
 			"value" : "TRUE"
 		},
 		{
-			"name" : "sesion4_BINARY_DIR",
+			"name" : "sesion5_BINARY_DIR",
 			"properties" : 
 			[
 				{
@@ -1366,7 +1366,7 @@
 			"value" : "C:/Users/aitor/Documents/IG/sesion6/cmake-build-debug"
 		},
 		{
-			"name" : "sesion4_IS_TOP_LEVEL",
+			"name" : "sesion5_IS_TOP_LEVEL",
 			"properties" : 
 			[
 				{
@@ -1378,7 +1378,7 @@
 			"value" : "ON"
 		},
 		{
-			"name" : "sesion4_SOURCE_DIR",
+			"name" : "sesion5_SOURCE_DIR",
 			"properties" : 
 			[
 				{

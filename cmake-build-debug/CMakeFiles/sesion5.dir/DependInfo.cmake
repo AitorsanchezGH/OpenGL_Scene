@@ -8,9 +8,9 @@ set(CMAKE_DEPENDS_LANGUAGES
 
 # The set of dependency files which are needed:
 set(CMAKE_DEPENDS_DEPENDENCY_FILES
-  "C:/Users/aitor/Documents/IG/sesion6/src/Model.cpp" "CMakeFiles/sesion4.dir/src/Model.cpp.obj" "gcc" "CMakeFiles/sesion4.dir/src/Model.cpp.obj.d"
-  "C:/Users/aitor/Documents/IG/sesion6/src/Shaders.cpp" "CMakeFiles/sesion4.dir/src/Shaders.cpp.obj" "gcc" "CMakeFiles/sesion4.dir/src/Shaders.cpp.obj.d"
-  "C:/Users/aitor/Documents/IG/sesion6/src/main.cpp" "CMakeFiles/sesion4.dir/src/main.cpp.obj" "gcc" "CMakeFiles/sesion4.dir/src/main.cpp.obj.d"
+  "C:/Users/aitor/Documents/IG/sesion6/src/Model.cpp" "CMakeFiles/sesion5.dir/src/Model.cpp.obj" "gcc" "CMakeFiles/sesion5.dir/src/Model.cpp.obj.d"
+  "C:/Users/aitor/Documents/IG/sesion6/src/Shaders.cpp" "CMakeFiles/sesion5.dir/src/Shaders.cpp.obj" "gcc" "CMakeFiles/sesion5.dir/src/Shaders.cpp.obj.d"
+  "C:/Users/aitor/Documents/IG/sesion6/src/main.cpp" "CMakeFiles/sesion5.dir/src/main.cpp.obj" "gcc" "CMakeFiles/sesion5.dir/src/main.cpp.obj.d"
   )
 
 # Targets to which this target links which contain Fortran sources.

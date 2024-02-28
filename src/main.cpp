@@ -89,10 +89,10 @@ void configScene() {
     glPolygonOffset(1.0,1.0);
 
  // Shaders
-    shaders.initShaders("resources1/shaders/vshader.glsl","resources1/shaders/fshader.glsl");
+    shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
 
  // Modelos
-    sphere.initModel("resources1/models/sphere.obj");
+    sphere.initModel("resources/models/sphere.obj");
 
 }
 
