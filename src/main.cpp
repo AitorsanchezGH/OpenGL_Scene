@@ -21,7 +21,9 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
    Model sphere;
 
 // Luces y materiales
+   #define   NLD 1
    Light     lightG;
+   Light     lightD[NLD];
    Material  ruby;
 
 // Viewport
@@ -99,7 +101,13 @@ void configScene() {
     sphere.initModel("resources/models/sphere.obj");
 
  // Luz ambiental global
-    lightG.ambient = glm::vec3(0.9, 0.9, 0.9);
+    lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
+
+ // Luces direccionales
+    lightD[0].direction = glm::vec3(-1.0, 0.0, 0.0);
+    lightD[0].ambient   = glm::vec3( 0.1, 0.1, 0.1);
+    lightD[0].diffuse   = glm::vec3( 0.7, 0.7, 0.7);
+    lightD[0].specular  = glm::vec3( 0.7, 0.7, 0.7);
 
  // Materiales
     ruby.ambient   = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
@@ -133,6 +141,7 @@ void renderScene() {
     glm::vec3 center(0.0, 0.0,  0.0);
     glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
+    shaders.setVec3("ueye",eye);
 
  // Fijamos las luces
     setLights();
@@ -148,11 +157,14 @@ void renderScene() {
 void setLights() {
 
     shaders.setLight("ulightG",lightG);
+    for(int i=0; i<NLD; i++) shaders.setLight("ulightD["+toString(i)+"]",lightD[i]);
 
 }
 
 void drawObject(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
+    shaders.setMat4("uN"  ,glm::transpose(glm::inverse(M)));
+    shaders.setMat4("uM"  ,M);
     shaders.setMat4("uPVM",P*V*M);
     shaders.setMaterial("umaterial",material);
     model.renderModel(GL_FILL);
