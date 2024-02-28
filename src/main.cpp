@@ -22,8 +22,10 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Luces y materiales
    #define   NLD 1
+   #define   NLP 1
    Light     lightG;
    Light     lightD[NLD];
+   Light     lightP[NLP];
    Material  ruby;
 
 // Viewport
@@ -109,6 +111,15 @@ void configScene() {
     lightD[0].diffuse   = glm::vec3( 0.7, 0.7, 0.7);
     lightD[0].specular  = glm::vec3( 0.7, 0.7, 0.7);
 
+ // Luces posicionales
+    lightP[0].position    = glm::vec3(0.0, 3.0, 3.0);
+    lightP[0].ambient     = glm::vec3(0.2, 0.2, 0.2);
+    lightP[0].diffuse     = glm::vec3(0.9, 0.9, 0.9);
+    lightP[0].specular    = glm::vec3(0.9, 0.9, 0.9);
+    lightP[0].c0          = 1.00;
+    lightP[0].c1          = 0.22;
+    lightP[0].c2          = 0.20;
+
  // Materiales
     ruby.ambient   = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
     ruby.diffuse   = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
@@ -158,6 +169,7 @@ void setLights() {
 
     shaders.setLight("ulightG",lightG);
     for(int i=0; i<NLD; i++) shaders.setLight("ulightD["+toString(i)+"]",lightD[i]);
+    for(int i=0; i<NLP; i++) shaders.setLight("ulightP["+toString(i)+"]",lightP[i]);
 
 }
 
@@ -190,8 +202,8 @@ void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
         case GLFW_KEY_LEFT:  rotY -= 5.0f;   break;
         case GLFW_KEY_RIGHT: rotY += 5.0f;   break;
         case GLFW_KEY_Z:
-            if(mods==GLFW_MOD_SHIFT) desZ -= desZ > -3.55f ? 0.1f : 0.0f;
-            else                     desZ += desZ <  3.55f ? 0.1f : 0.0f;
+            if(mods==GLFW_MOD_SHIFT) desZ -= desZ > -24.0f ? 0.1f : 0.0f;
+            else                     desZ += desZ <   5.0f ? 0.1f : 0.0f;
             break;
         default:
             rotX = 0.0f;
