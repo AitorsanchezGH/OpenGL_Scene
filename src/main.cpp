@@ -41,8 +41,11 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Movimiento de camara
    float fovy   = 60.0;
-   float alphaX =  0.0;
+   float lastX = 0.0;
+   float lastY = 0.0;
+   float alphaX = 0.0;
    float alphaY = 20.0;
+   bool mouseLeftPressed = false;
 
 // Interaccion con las luces
    float onOff  = 1.0;
@@ -255,16 +258,29 @@ void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
 
 }
 
+
 void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_LEFT) == GLFW_PRESS) {
+        if (!mouseLeftPressed) {
+            // Se presionó el botón izquierdo, almacenar la posición inicial
+            lastX = xpos;
+            lastY = ypos;
+            mouseLeftPressed = true;
+        }
 
-    if(glfwGetMouseButton(window,GLFW_MOUSE_BUTTON_LEFT)==GLFW_RELEASE) return;
+        float limY = 89.0;
+        alphaX += 90.0 * (2.0 * (xpos - lastX) / (float)w);
+        alphaY += 90.0 * (2.0 * (lastY - ypos) / (float)h);
+        if (alphaY < -limY) alphaY = -limY;
+        if (alphaY > limY) alphaY = limY;
 
-    float limY = 89.0;
-    alphaX = 90.0*(2.0*xpos/(float)w - 1.0);
-    alphaY = 90.0*(1.0 - 2.0*ypos/(float)h);
-    if(alphaY<-limY) alphaY = -limY;
-    if(alphaY> limY) alphaY =  limY;
-
+        // Actualizar la posición inicial para el próximo movimiento
+        lastX = xpos;
+        lastY = ypos;
+    } else {
+        // Se soltó el botón izquierdo, restablecer el estado
+        mouseLeftPressed = false;
+    }
 }
 
 void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
