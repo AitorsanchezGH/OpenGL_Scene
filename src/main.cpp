@@ -14,36 +14,40 @@ void funKey            (GLFWwindow* window, int key  , int scancode, int action,
 void funScroll         (GLFWwindow* window, double xoffset, double yoffset);
 void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
+
 // Shaders
    Shaders shaders;
 
 // Modelos
    Model sphere;
+   Model plane;
 
 // Luces y materiales
    #define   NLD 1
    #define   NLP 1
-   #define   NLF 2
+   #define   NLF 1
    Light     lightG;
    Light     lightD[NLD];
    Light     lightP[NLP];
    Light     lightF[NLF];
    Material  mluz;
    Material  ruby;
+   Material  gold;
+   Material  cyan_plastic;
 
 // Viewport
    int w = 500;
    int h = 500;
 
-// Animaciones
-   float rotX = 0.0;
-   float rotY = 0.0;
-   float desZ = 0.0;
-
 // Movimiento de camara
-   float fovy   = 30.0;
+   float fovy   = 60.0;
    float alphaX =  0.0;
-   float alphaY =  0.0;
+   float alphaY = 20.0;
+
+// Interaccion con las luces
+   float onOff  = 1.0;
+   float potD   = 1.0;
+   float rotY   = 0.0;
 
 int main() {
 
@@ -98,6 +102,7 @@ void configScene() {
 
  // Test de profundidad
     glEnable(GL_DEPTH_TEST);
+    glEnable(GL_CULL_FACE);
 
  // Shaders
     shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
@@ -107,18 +112,15 @@ void configScene() {
 
  // Modelos
     sphere.initModel("resources/models/sphere.obj");
+    plane.initModel("resources/models/plane.obj");
 
  // Luz ambiental global
     lightG.ambient = glm::vec3(0.5, 0.5, 0.5);
 
  // Luces direccionales
-    lightD[0].direction = glm::vec3(-1.0, 0.0, 0.0);
-    lightD[0].ambient   = glm::vec3( 0.1, 0.1, 0.1);
-    lightD[0].diffuse   = glm::vec3( 0.7, 0.7, 0.7);
-    lightD[0].specular  = glm::vec3( 0.7, 0.7, 0.7);
+    lightD[0].direction = glm::vec3(0.0, 1.0, 0.0);
 
  // Luces posicionales
-    lightP[0].position    = glm::vec3(0.0, 3.0, 3.0);
     lightP[0].ambient     = glm::vec3(0.2, 0.2, 0.2);
     lightP[0].diffuse     = glm::vec3(0.9, 0.9, 0.9);
     lightP[0].specular    = glm::vec3(0.9, 0.9, 0.9);
@@ -127,26 +129,13 @@ void configScene() {
     lightP[0].c2          = 0.20;
 
  // Luces focales
-    lightF[0].position    = glm::vec3(-2.0,  2.0,  5.0);
-    lightF[0].direction   = glm::vec3( 2.0, -2.0, -5.0);
-    lightF[0].ambient     = glm::vec3( 0.2,  0.2,  0.2);
-    lightF[0].diffuse     = glm::vec3( 0.9,  0.9,  0.9);
-    lightF[0].specular    = glm::vec3( 0.9,  0.9,  0.9);
-    lightF[0].innerCutOff = 10.0;
-    lightF[0].outerCutOff = lightF[0].innerCutOff + 5.0;
+    lightF[0].position    = glm::vec3(5.0, 3.0, 5.0);
+    lightF[0].direction   = glm::vec3(2.0, 0.0, 2.0) - lightF[0].position;
+    lightF[0].innerCutOff = 7.0;
+    lightF[0].outerCutOff = lightF[0].innerCutOff + 0.1;
     lightF[0].c0          = 1.000;
     lightF[0].c1          = 0.090;
     lightF[0].c2          = 0.032;
-    lightF[1].position    = glm::vec3( 2.0,  2.0,  5.0);
-    lightF[1].direction   = glm::vec3(-2.0, -2.0, -5.0);
-    lightF[1].ambient     = glm::vec3( 0.2,  0.2,  0.2);
-    lightF[1].diffuse     = glm::vec3( 0.9,  0.9,  0.9);
-    lightF[1].specular    = glm::vec3( 0.9,  0.9,  0.9);
-    lightF[1].innerCutOff = 5.0;
-    lightF[1].outerCutOff = lightF[1].innerCutOff + 1.0;
-    lightF[1].c0          = 1.000;
-    lightF[1].c1          = 0.090;
-    lightF[1].c2          = 0.032;
 
  // Materiales
     mluz.ambient   = glm::vec4(0.0, 0.0, 0.0, 1.0);
@@ -159,6 +148,16 @@ void configScene() {
     ruby.specular  = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
     ruby.emissive  = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
     ruby.shininess = 76.8;
+    gold.ambient   = glm::vec4(0.24725, 0.1995, 0.0745, 1.00 );
+    gold.diffuse   = glm::vec4(0.75164, 0.60648, 0.22648, 1.00);
+    gold.specular  = glm::vec4(0.628281, 0.555802, 0.366065, 1.00);
+    gold.emissive  = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
+    gold.shininess = 51.2;
+    cyan_plastic.ambient   = glm::vec4(0.00,0.10,0.06 ,1.00 );
+    cyan_plastic.diffuse   = glm::vec4(0.00,0.50980392,0.50980392,1.00);
+    cyan_plastic.specular  = glm::vec4(0.50196078,0.50196078,0.50196078,1.00);
+    cyan_plastic.emissive  = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
+    cyan_plastic.shininess = 32.0;
 
 }
 
@@ -191,29 +190,40 @@ void renderScene() {
     setLights(P,V);
 
  // Dibujamos la escena
-    glm::mat4 Ry = glm::rotate   (I, glm::radians(rotY), glm::vec3(0,1,0));
-    glm::mat4 Rx = glm::rotate   (I, glm::radians(rotX), glm::vec3(1,0,0));
-    glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-    drawObject(sphere,ruby,P,V,Tz*Rx*Ry);
+    glm::mat4 S = glm::scale (I, glm::vec3(5.5, 1.0, 5.5));
+    glm::mat4 R = glm::rotate(I,glm::radians(180.0f), glm::vec3(1, 0, 0));
+    drawObject(plane,cyan_plastic,P,V,S);
+    drawObject(plane,cyan_plastic,P,V,S*R);
+    glm::mat4 T = glm::translate(I, glm::vec3(0.0, 3.0, 0.0));
+    drawObject(sphere,gold,P,V,T);
 
 }
 
 void setLights(glm::mat4 P, glm::mat4 V) {
 
     shaders.setLight("ulightG",lightG);
-    for(int i=0; i<NLD; i++) shaders.setLight("ulightD["+toString(i)+"]",lightD[i]);
-    for(int i=0; i<NLP; i++) shaders.setLight("ulightP["+toString(i)+"]",lightP[i]);
-    for(int i=0; i<NLF; i++) shaders.setLight("ulightF["+toString(i)+"]",lightF[i]);
 
-    for(int i=0; i<NLP; i++) {
-        glm::mat4 M = glm::translate(I,lightP[i].position) * glm::scale(I,glm::vec3(0.1));
-        drawObject(sphere,mluz,P,V,M);
-    }
+ // Luz direccional
+    lightD[0].ambient  = potD*glm::vec3(0.1,  0.1, 0.1);
+    lightD[0].diffuse  = potD*glm::vec3(0.7,  0.7, 0.7);
+    lightD[0].specular = potD*glm::vec3(0.7,  0.7, 0.7);
+    shaders.setLight("ulightD[0]",lightD[0]);
 
-    for(int i=0; i<NLF; i++) {
-        glm::mat4 M = glm::translate(I,lightF[i].position) * glm::scale(I,glm::vec3(0.025));
-        drawObject(sphere,mluz,P,V,M);
-    }
+ // Fijamos la luz posicional
+    lightP[0].position  = glm::vec3(-2.0, 0.5, 0.0);
+    glm::mat4 R = glm::rotate(I, glm::radians(rotY), glm::vec3(1.0, 0.0, 0.0));
+    lightP[0].position = R*glm::vec4(lightP[0].position,1);
+    shaders.setLight("ulightP[0]",lightP[0]);
+    glm::mat4 Mp = glm::translate(I,lightP[0].position) * glm::scale(I,glm::vec3(0.025));
+    drawObject(sphere,mluz,P,V,Mp);
+
+ // Fijamos la luz focal
+    lightF[0].ambient  = onOff*glm::vec3( 0.2,  0.2,  0.2);
+    lightF[0].diffuse  = onOff*glm::vec3( 0.9,  0.9,  0.9);
+    lightF[0].specular = onOff*glm::vec3( 0.9,  0.9,  0.9);
+    shaders.setLight("ulightF[0]",lightF[0]);
+    glm::mat4 Mf = glm::translate(I,lightF[0].position) * glm::scale(I,glm::vec3(0.025));
+    drawObject(sphere,mluz,P,V,Mf);
 
 }
 
@@ -238,25 +248,6 @@ void funFramebufferSize(GLFWwindow* window, int width, int height) {
 
 }
 
-void funKey(GLFWwindow* window, int key  , int scancode, int action, int mods) {
-
-    switch(key) {
-        case GLFW_KEY_UP:    rotX -= 5.0f;   break;
-        case GLFW_KEY_DOWN:  rotX += 5.0f;   break;
-        case GLFW_KEY_LEFT:  rotY -= 5.0f;   break;
-        case GLFW_KEY_RIGHT: rotY += 5.0f;   break;
-        case GLFW_KEY_Z:
-            if(mods==GLFW_MOD_SHIFT) desZ -= desZ > -24.0f ? 0.1f : 0.0f;
-            else                     desZ += desZ <   5.0f ? 0.1f : 0.0f;
-            break;
-        default:
-            rotX = 0.0f;
-            rotY = 0.0f;
-            break;
-    }
-
-}
-
 void funScroll(GLFWwindow* window, double xoffset, double yoffset) {
 
     if(yoffset>0) fovy -= fovy>10.0f ? 5.0f : 0.0f;
@@ -273,5 +264,31 @@ void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
     alphaY = 90.0*(1.0 - 2.0*ypos/(float)h);
     if(alphaY<-limY) alphaY = -limY;
     if(alphaY> limY) alphaY =  limY;
+
+}
+
+void funKey(GLFWwindow* window, int key, int scancode, int action, int mods) {
+
+    switch(key) {
+        case GLFW_KEY_F:
+            if(action==GLFW_PRESS) onOff = onOff==0.0f ? 1.00f : 0.0f;
+            break;
+        case GLFW_KEY_UP:   potD += potD < 1.0f ? 0.05f : 0.0f; break;
+        case GLFW_KEY_DOWN: potD -= potD > 0.0f ? 0.05f : 0.0f; break;
+            break;
+        case GLFW_KEY_P:
+            if(action==GLFW_REPEAT) {
+                if(mods==GLFW_MOD_SHIFT) rotY -= 5.0;
+                else                     rotY += 5.0;
+            }
+            break;
+        default:
+            fovy   = 60.0;
+            alphaX =  0.0;
+            alphaY = 20.0;
+            onOff  =  1.0;
+            potD   =  1.0;
+            rotY   =  0.0;
+    }
 
 }
