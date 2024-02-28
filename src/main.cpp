@@ -6,7 +6,7 @@
 
 void configScene();
 void renderScene();
-void setLights();
+void setLights (glm::mat4 P, glm::mat4 V);
 void drawObject(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
@@ -28,6 +28,7 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
    Light     lightD[NLD];
    Light     lightP[NLP];
    Light     lightF[NLF];
+   Material  mluz;
    Material  ruby;
 
 // Viewport
@@ -145,6 +146,11 @@ void configScene() {
     lightF[1].c2          = 0.032;
 
  // Materiales
+    mluz.ambient   = glm::vec4(0.0, 0.0, 0.0, 1.0);
+    mluz.diffuse   = glm::vec4(0.0, 0.0, 0.0, 1.0);
+    mluz.specular  = glm::vec4(0.0, 0.0, 0.0, 1.0);
+    mluz.emissive  = glm::vec4(1.0, 1.0, 1.0, 1.0);
+    mluz.shininess = 1.0;
     ruby.ambient   = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
     ruby.diffuse   = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
     ruby.specular  = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
@@ -179,7 +185,7 @@ void renderScene() {
     shaders.setVec3("ueye",eye);
 
  // Fijamos las luces
-    setLights();
+    setLights(P,V);
 
  // Dibujamos la escena
     glm::mat4 Ry = glm::rotate   (I, glm::radians(rotY), glm::vec3(0,1,0));
@@ -189,12 +195,22 @@ void renderScene() {
 
 }
 
-void setLights() {
+void setLights(glm::mat4 P, glm::mat4 V) {
 
     shaders.setLight("ulightG",lightG);
     for(int i=0; i<NLD; i++) shaders.setLight("ulightD["+toString(i)+"]",lightD[i]);
     for(int i=0; i<NLP; i++) shaders.setLight("ulightP["+toString(i)+"]",lightP[i]);
     for(int i=0; i<NLF; i++) shaders.setLight("ulightF["+toString(i)+"]",lightF[i]);
+
+    for(int i=0; i<NLP; i++) {
+        glm::mat4 M = glm::translate(I,lightP[i].position) * glm::scale(I,glm::vec3(0.1));
+        drawObject(sphere,mluz,P,V,M);
+    }
+
+    for(int i=0; i<NLF; i++) {
+        glm::mat4 M = glm::translate(I,lightF[i].position) * glm::scale(I,glm::vec3(0.025));
+        drawObject(sphere,mluz,P,V,M);
+    }
 
 }
 
