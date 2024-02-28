@@ -101,6 +101,9 @@ void configScene() {
 
  // Shaders
     shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader.glsl");
+    //shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader_cartoon.glsl");
+    //shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader_procedural.glsl");
+    //shaders.initShaders("resources/shaders/vshader.glsl","resources/shaders/fshader_discard.glsl");
 
  // Modelos
     sphere.initModel("resources/models/sphere.obj");
