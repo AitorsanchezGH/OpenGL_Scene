@@ -23,9 +23,11 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 // Luces y materiales
    #define   NLD 1
    #define   NLP 1
+   #define   NLF 2
    Light     lightG;
    Light     lightD[NLD];
    Light     lightP[NLP];
+   Light     lightF[NLF];
    Material  ruby;
 
 // Viewport
@@ -120,6 +122,28 @@ void configScene() {
     lightP[0].c1          = 0.22;
     lightP[0].c2          = 0.20;
 
+ // Luces focales
+    lightF[0].position    = glm::vec3(-2.0,  2.0,  5.0);
+    lightF[0].direction   = glm::vec3( 2.0, -2.0, -5.0);
+    lightF[0].ambient     = glm::vec3( 0.2,  0.2,  0.2);
+    lightF[0].diffuse     = glm::vec3( 0.9,  0.9,  0.9);
+    lightF[0].specular    = glm::vec3( 0.9,  0.9,  0.9);
+    lightF[0].innerCutOff = 10.0;
+    lightF[0].outerCutOff = lightF[0].innerCutOff + 5.0;
+    lightF[0].c0          = 1.000;
+    lightF[0].c1          = 0.090;
+    lightF[0].c2          = 0.032;
+    lightF[1].position    = glm::vec3( 2.0,  2.0,  5.0);
+    lightF[1].direction   = glm::vec3(-2.0, -2.0, -5.0);
+    lightF[1].ambient     = glm::vec3( 0.2,  0.2,  0.2);
+    lightF[1].diffuse     = glm::vec3( 0.9,  0.9,  0.9);
+    lightF[1].specular    = glm::vec3( 0.9,  0.9,  0.9);
+    lightF[1].innerCutOff = 5.0;
+    lightF[1].outerCutOff = lightF[1].innerCutOff + 1.0;
+    lightF[1].c0          = 1.000;
+    lightF[1].c1          = 0.090;
+    lightF[1].c2          = 0.032;
+
  // Materiales
     ruby.ambient   = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
     ruby.diffuse   = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
@@ -170,6 +194,7 @@ void setLights() {
     shaders.setLight("ulightG",lightG);
     for(int i=0; i<NLD; i++) shaders.setLight("ulightD["+toString(i)+"]",lightD[i]);
     for(int i=0; i<NLP; i++) shaders.setLight("ulightP["+toString(i)+"]",lightP[i]);
+    for(int i=0; i<NLF; i++) shaders.setLight("ulightF["+toString(i)+"]",lightF[i]);
 
 }
 
