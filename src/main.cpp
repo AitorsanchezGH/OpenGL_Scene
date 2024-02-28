@@ -6,7 +6,8 @@
 
 void configScene();
 void renderScene();
-void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M);
+void setLights();
+void drawObject(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M);
 
 void funFramebufferSize(GLFWwindow* window, int width, int height);
 void funKey            (GLFWwindow* window, int key  , int scancode, int action, int mods);
@@ -18,6 +19,10 @@ void funCursorPos      (GLFWwindow* window, double xpos, double ypos);
 
 // Modelos
    Model sphere;
+
+// Luces y materiales
+   Light     lightG;
+   Material  ruby;
 
 // Viewport
    int w = 500;
@@ -93,6 +98,16 @@ void configScene() {
  // Modelos
     sphere.initModel("resources/models/sphere.obj");
 
+ // Luz ambiental global
+    lightG.ambient = glm::vec3(0.9, 0.9, 0.9);
+
+ // Materiales
+    ruby.ambient   = glm::vec4(0.174500, 0.011750, 0.011750, 0.55);
+    ruby.diffuse   = glm::vec4(0.614240, 0.041360, 0.041360, 0.55);
+    ruby.specular  = glm::vec4(0.727811, 0.626959, 0.626959, 0.55);
+    ruby.emissive  = glm::vec4(0.000000, 0.000000, 0.000000, 1.00);
+    ruby.shininess = 76.8;
+
 }
 
 void renderScene() {
@@ -119,20 +134,28 @@ void renderScene() {
     glm::vec3 up    (0.0, 1.0,  0.0);
     glm::mat4 V = glm::lookAt(eye, center, up);
 
+ // Fijamos las luces
+    setLights();
+
  // Dibujamos la escena
     glm::mat4 Ry = glm::rotate   (I, glm::radians(rotY), glm::vec3(0,1,0));
     glm::mat4 Rx = glm::rotate   (I, glm::radians(rotX), glm::vec3(1,0,0));
     glm::mat4 Tz = glm::translate(I, glm::vec3(0.0, 0.0, desZ));
-    drawObject(sphere,glm::vec3(1.0, 0.0, 0.0),P,V,Tz*Rx*Ry);
+    drawObject(sphere,ruby,P,V,Tz*Rx*Ry);
 
 }
 
-void drawObject(Model &model, glm::vec3 color, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
+void setLights() {
+
+    shaders.setLight("ulightG",lightG);
+
+}
+
+void drawObject(Model &model, Material &material, glm::mat4 P, glm::mat4 V, glm::mat4 M) {
 
     shaders.setMat4("uPVM",P*V*M);
-    shaders.setVec3("uColor",color);
+    shaders.setMaterial("umaterial",material);
     model.renderModel(GL_FILL);
-
 
 }
 
