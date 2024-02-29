@@ -271,8 +271,8 @@ void funCursorPos(GLFWwindow* window, double xpos, double ypos) {
         float limY = 89.0;
         alphaX += 90.0 * (2.0 * (xpos - lastX) / (float)w);
         alphaY += 90.0 * (2.0 * (lastY - ypos) / (float)h);
-        if (alphaY < -limY) alphaY = -limY;
-        if (alphaY > limY) alphaY = limY;
+        if (alphaY < -limY) alphaY = limY;
+        if (alphaY > limY) alphaY = -limY;
 
         // Actualizar la posición inicial para el próximo movimiento
         lastX = xpos;
