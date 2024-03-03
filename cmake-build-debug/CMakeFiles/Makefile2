@@ -62,7 +62,7 @@ CMAKE_BINARY_DIR = C:\Users\aitor\Documents\IG\sesion6\cmake-build-debug
 # Directory level rules for the build root directory
 
 # The main recursive "all" target.
-all: CMakeFiles/sesion4.dir/all
+all: CMakeFiles/sesion6.dir/all
 .PHONY : all
 
 # The main recursive "preinstall" target.
@@ -70,34 +70,34 @@ preinstall:
 .PHONY : preinstall
 
 # The main recursive "clean" target.
-clean: CMakeFiles/sesion4.dir/clean
+clean: CMakeFiles/sesion6.dir/clean
 .PHONY : clean
 
 #=============================================================================
-# Target rules for target CMakeFiles/sesion4.dir
+# Target rules for target CMakeFiles/sesion6.dir
 
 # All Build rule for target.
-CMakeFiles/sesion4.dir/all:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/depend
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\aitor\Documents\IG\sesion6\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4 "Built target sesion4"
-.PHONY : CMakeFiles/sesion4.dir/all
+CMakeFiles/sesion6.dir/all:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/depend
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color "--switch=$(COLOR)" --progress-dir=C:\Users\aitor\Documents\IG\sesion6\cmake-build-debug\CMakeFiles --progress-num=1,2,3,4 "Built target sesion6"
+.PHONY : CMakeFiles/sesion6.dir/all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/sesion4.dir/rule: cmake_check_build_system
+CMakeFiles/sesion6.dir/rule: cmake_check_build_system
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\aitor\Documents\IG\sesion6\cmake-build-debug\CMakeFiles 4
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/sesion4.dir/all
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\Makefile2 CMakeFiles/sesion6.dir/all
 	$(CMAKE_COMMAND) -E cmake_progress_start C:\Users\aitor\Documents\IG\sesion6\cmake-build-debug\CMakeFiles 0
-.PHONY : CMakeFiles/sesion4.dir/rule
+.PHONY : CMakeFiles/sesion6.dir/rule
 
 # Convenience name for target.
-sesion4: CMakeFiles/sesion4.dir/rule
-.PHONY : sesion4
+sesion6: CMakeFiles/sesion6.dir/rule
+.PHONY : sesion6
 
 # clean rule for target.
-CMakeFiles/sesion4.dir/clean:
-	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion4.dir\build.make CMakeFiles/sesion4.dir/clean
-.PHONY : CMakeFiles/sesion4.dir/clean
+CMakeFiles/sesion6.dir/clean:
+	$(MAKE) $(MAKESILENT) -f CMakeFiles\sesion6.dir\build.make CMakeFiles/sesion6.dir/clean
+.PHONY : CMakeFiles/sesion6.dir/clean
 
 #=============================================================================
 # Special targets to cleanup operation of make.
